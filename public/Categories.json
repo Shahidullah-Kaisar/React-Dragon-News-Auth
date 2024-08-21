@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "name": "International News"
+    },
+    {
+      "id": 2,
+      "name": "Books News"
+    },
+    {
+      "id": 3,
+      "name": "Breaking News"
+    },
+    {
+      "id": 4,
+      "name": "Regular News"
+    },
+    {
+      "id": 5,
+      "name": "Sports & Outdoors"
+    },
+    {
+        "id": 6,
+        "name": "Clothing"
+      },
+      {
+        "id": 7,
+        "name": "Home & Kitchen"
+      },
+      {
+        "id": 8,
+        "name": "Sports & Outdoors"
+      }
+  ]
+  
