@@ -14,6 +14,12 @@ const AuthProvider = ({children}) => {
         return userCredential;
     };
 
+    const signInUser = async (email, password) => {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      setUser(userCredential.user);
+      return userCredential;
+    };
+    
     useEffect(() =>{
         const unSubscrirbe = onAuthStateChanged(auth, (currentUser) =>{
           console.log('saved data until sighnout',currentUser)
@@ -21,14 +27,9 @@ const AuthProvider = ({children}) => {
           setLoading(false);
         });
         return ()=> unSubscrirbe();
-      },[])
+      },[]);
 
-      const signInUser = async (email, password) => {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        setUser(userCredential.user);
-        return userCredential;
-    };
-
+    
       const userSignOut = async () => {
         await signOut(auth);
         setUser(null);

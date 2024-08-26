@@ -16,11 +16,11 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-        <>
-          <li className="text-2xl mr-7"><NavLink to="/">Home</NavLink></li>
-          <li className="text-2xl mr-7"><NavLink to="/about">About</NavLink></li>
-          <li className="text-2xl mr-7"><NavLink to="/career">Career</NavLink></li>
-        </>
+      
+      <li className="text-2xl mr-7"><NavLink to="/">Home</NavLink></li>
+      <li className="text-2xl mr-7"><NavLink to="/about">About</NavLink></li>
+      <li className="text-2xl mr-7"><NavLink to="/career">Career</NavLink></li>
+        
     </>
   );
   return (
@@ -67,7 +67,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {user ? (
+          {user && user.emailVerified ? (
             <button
               className="btn btn-secondary text-xl"
               onClick={handleSignOut}

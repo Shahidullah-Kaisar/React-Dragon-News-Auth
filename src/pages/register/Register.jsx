@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../shared/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
+import { sendEmailVerification, updateProfile } from "firebase/auth";
+import Swal from 'sweetalert2'
 
 const Register = () => {
   const { createRegisterUser } = useContext(AuthContext);
@@ -25,18 +27,55 @@ const Register = () => {
         console.log(form.get('email'))
     */
 
+    if (password.length < 6) {
+      setRegisterError("Password should be at least 6 characters");
+      return;
+    }
+    else if (!/[A-Z]/.test(password)) {
+      setRegisterError("Password should be at least one Upper Case letters.");
+      return;
+    }
+    else if (!accepted){
+      setRegisterError('Please Accept Our terms and conditon')
+      return;
+    }
+
     setSuccess("");
     setRegisterError("");
 
     createRegisterUser(email, password)
       .then((result) => {
         console.log(result.user);
-        setSuccess("User Created Successfully");
+        // setSuccess("User Created Successfully");
+        Swal.fire({
+          title: 'Success',
+          text: 'Registration Successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+
+        updateProfile(result.user, {
+          displayName: name,
+        })
+        .then(() => {
+          console.log('Profile Updated')
+        })
+        .catch( (error)=> {
+          console.log(error)
+        })
+
+        sendEmailVerification(result.user)
+        .then(() => {
+          alert('Please check your email and verify your account')
+        });
+
       })
       .catch((error) => {
         console.log(error);
         setRegisterError(error.message);
       });
+
+      
   };
   return (
     <>
@@ -118,7 +157,7 @@ const Register = () => {
           {registerError && (
             <p className="text-red-700 text-lg ml-16 mb-2">{registerError}</p>
           )}
-          {<p className="text-green-700 text-lg md:ml-36 mb-2">{success}</p>}
+          {/* {<p className="text-green-700 text-lg md:ml-36 mb-2">{success}</p>} */}
 
         </div>
       </div>

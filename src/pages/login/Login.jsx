@@ -3,6 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../shared/Navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
 
@@ -25,12 +27,12 @@ const Login = () => {
         console.log(result.user);
         e.target.reset();
 
-        if (result.user) {
-          alert("Login Successfull!");
+        if (result.user.emailVerified) {
+          toast.success('Login Successfull!');
 
           setTimeout(() => {
             navigate(location?.state ? location.state : '/');
-          }, 1000);
+          }, 3000);
 
         }
         else {
@@ -82,6 +84,20 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary text-lg">Login</button>
+              <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                />
+              
+
             </div>
             <div>
               <p>
